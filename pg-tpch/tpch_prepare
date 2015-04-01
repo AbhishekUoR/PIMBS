@@ -1,0 +1,231 @@
+#!/bin/bash
+# This script has numerous Bashisms, and is assumed to be runing on a recent
+# Linux system (certainly, Kernel 2.6+).
+# Assume that we're generally interested in re-initializing data;
+# it may be useful to turn off REMAKE_DATA for repeated runs.
+#
+# Configuration variables
+BASEDIR=`pwd`/dbgen
+TPCHTMP=/dev/shm/$USER/tpch_tmp
+PGDATADIR=/dev/shm/$USER/pgdata
+PGPORT=5442
+REMAKE_DATA=true
+DB_NAME="tpch"
+POPULATE_DB=true
+CREATE_MIN_INDEXES=false
+CREATE_ALL_INDEXES=true
+# Scale factor. 1 = 1GB, 10 = 10GB. TPC-H has rules about which scale factors
+# are considered valid for comparative purposes.
+SCALE=1
+
+
+#
+# The actual code; you shouldn't have to modify anything from this point on
+#
+CORES=`grep -c ^processor /proc/cpuinfo`
+
+#
+# Check for the running Postgres; exit if there is any on the given port
+#
+PGPORT_PROCLIST="$(lsof -i tcp:$PGPORT | tail -n +2 | awk '{print $2}')"
+if [[ $(echo "$PGPORT_PROCLIST" | wc -w) -gt 0 ]];
+then
+  echo "The following processes have taken port $PGPORT"
+  echo "Please terminate them before running this script"
+  echo
+  for p in $PGPORT_PROCLIST;
+  do
+    ps -o pid,cmd $p
+  done
+  exit -1
+fi
+
+#
+# Check if a Postgres server is running in the same directory
+#
+if pg_ctl status -D $PGDATADIR | grep "server is running" -q; then
+  echo "A Postgres server is already running in the selected directory. Exiting."
+  pg_ctl status -D $PGDATADIR
+  exit -2
+fi
+
+#
+# Initialize DB if $PGDATADIR does not exist
+#
+if ! [ -d "$PGDATADIR" ]; then
+  mkdir -p "$PGDATADIR"
+  initdb -D "$PGDATADIR"
+  CREATE_NEW_DB=true
+else
+  CREATE_NEW_DB=false
+fi
+
+#
+# Start a new instance of Postgres
+#
+pgtune -T DW -i $PGDATADIR/postgresql.conf -o $PGDATADIR/postgresql.conf
+postgres -D "$PGDATADIR" -p $PGPORT &
+PGPID=$!
+while ! pg_ctl status -D $PGDATADIR | grep "server is running" -q; do
+  echo "Waiting for the Postgres server to start"
+  sleep 1
+done
+
+if $CREATE_NEW_DB; then
+  createdb -p $PGPORT $USER --encoding=UTF-8 --lc-ctype=en_US.UTF-8 --lc-collate=en_US.UTF-8
+fi
+
+WAL_LEVEL_MINIMAL=`psql -p $PGPORT -c 'show wal_level' -t | grep minimal | wc -l`
+DEBUG_ASSERTIONS=`psql -p $PGPORT -c 'show debug_assertions' -t | grep on | wc -l`
+
+# disable resolving of *.tbl to '*.tbl' in case there are no matching files
+shopt -s nullglob
+
+function timer()
+{
+    if [[ $# -eq 0 ]]; then
+        echo $(date '+%s')
+    else
+        local  stime=$1
+        etime=$(date '+%s')
+
+        if [[ -z "$stime" ]]; then stime=$etime; fi
+
+        dt=$((etime - stime))
+        ds=$((dt % 60))
+        dm=$(((dt / 60) % 60))
+        dh=$((dt / 3600))
+        printf '%d:%02d:%02d' $dh $dm $ds
+    fi
+}
+
+t=$(timer)
+
+function die()
+{
+  echo "$@"
+  exit -1;
+}
+
+# Remind me of my current settings
+psql -p $PGPORT -c "select name, current_setting(name) from pg_settings where name
+in('debug_assertions', 'wal_level', 'checkpoint_segments', 'shared_buffers', 'wal_buffers',
+'fsync', 'maintenance_work_mem', 'checkpoint_completion_target',
+'max_connections');"
+
+if [ $WAL_LEVEL_MINIMAL != 1 ] ;
+then
+	echo "Warning: Postgres wal_level is not set to minimal; 'Elide WAL traffic' optimization cannot be used">&2
+fi
+
+if [ $DEBUG_ASSERTIONS = 1 ] ;
+then
+	echo "Error: debug_assertions are enabled">&2
+	exit -1
+fi
+
+cd $BASEDIR
+if ! [ -x dbgen ] || ! [ -x qgen ];
+then
+  make -j $CORES
+fi
+
+mkdir -p $TPCHTMP || die "Failed to create temporary directory: $TPCHTMP"
+
+if $REMAKE_DATA
+then
+  cd $TPCHTMP
+  cp $BASEDIR/dists.dss .
+  # Run dbgen with "force", to overwrite existing files
+  $BASEDIR/dbgen -s $SCALE -f -v
+fi
+
+if $POPULATE_DB
+then
+  echo "DROP DATABASE IF EXISTS $DB_NAME" | psql -p $PGPORT
+  # Make sure we're all on the same page wrt encoding, collations, etc.
+  createdb -p $PGPORT $DB_NAME --encoding=UTF-8 --lc-ctype=en_US.UTF-8 --lc-collate=en_US.UTF-8
+  if [ $? != 0 ]; then
+    # Did you forget to disconnect from the database before dropping?
+	echo "Error: Can't proceed without database"
+	exit -1
+  fi
+  TIME=`date`
+  psql -p $PGPORT -d $DB_NAME -c "comment on database $DB_NAME is 'TPC-H data, created at $TIME'"
+  psql -p $PGPORT -d $DB_NAME < $BASEDIR/dss.ddl
+  cd $TPCHTMP
+  for f in *.tbl; do
+	bf="$(basename $f .tbl)"
+	# We truncate the empty table in the sames transaction to enable Postgres to
+	# safely skip WAL-logging. See
+	# http://www.postgresql.org/docs/current/static/populate.html#POPULATE-PITR
+    echo "truncate $bf; COPY $bf FROM '$(pwd)/$f' WITH DELIMITER AS '|'" | psql -p $PGPORT -d $DB_NAME &
+  done
+  # TODO: It would be nice if there was a way to limit the number of
+  # concurrently executing jobs to $CORES. It is surprisingly easy to make COPY
+  # CPU-bound.
+  for p in $(jobs -p); do
+    if [ $p == $PGPID ]; then continue; fi
+    wait $p;
+  done
+fi
+
+cd $BASEDIR
+rm -rf $TPCHTMP
+
+# Since wal_level is hopefully set to 'minimal', it ought to be possible to skip
+# WAL logging these create index operations, too.
+if $CREATE_ALL_INDEXES
+then
+echo "Creating 'All' indexes..."
+psql -p $PGPORT -d $DB_NAME -c "CREATE INDEX i_l_shipdate ON lineitem (l_shipdate);
+CREATE INDEX i_l_suppkey_partkey ON lineitem (l_partkey, l_suppkey);
+CREATE INDEX i_l_partkey ON lineitem (l_partkey);
+CREATE INDEX i_l_suppkey ON lineitem (l_suppkey);
+CREATE INDEX i_l_receiptdate ON lineitem (l_receiptdate);
+CREATE INDEX i_l_orderkey ON lineitem (l_orderkey);
+CREATE INDEX i_l_orderkey_quantity ON lineitem (l_orderkey, l_quantity);
+CREATE INDEX i_c_nationkey ON customer (c_nationkey);
+CREATE INDEX i_o_orderdate ON orders (o_orderdate);
+CREATE INDEX i_o_custkey ON orders (o_custkey);
+CREATE INDEX i_s_nationkey ON supplier (s_nationkey);
+CREATE INDEX i_ps_partkey ON partsupp (ps_partkey);
+CREATE INDEX i_ps_suppkey ON partsupp (ps_suppkey);
+CREATE INDEX i_n_regionkey ON nation (n_regionkey);
+CREATE INDEX i_l_commitdate ON lineitem (l_commitdate);"
+fi
+if $CREATE_MIN_INDEXES
+then
+echo "Creating 'Min' indexes..."
+psql -p $PGPORT -d $DB_NAME -c "CREATE INDEX n_nationkey_idx on nation (n_nationkey);
+CREATE INDEX r_regionkey_idx on region (r_regionkey);
+CREATE INDEX p_partkey_idx on part (p_partkey);
+CREATE INDEX s_suppkey_idx on supplier (s_suppkey);
+CREATE INDEX ps_partkey_idx on partsupp (ps_partkey);
+CREATE INDEX c_custkey_idx on customer (c_custkey);
+CREATE INDEX o_orderkey_idx on orders (o_orderkey);
+CREATE INDEX l_orderkey_idx on lineitem (l_orderkey);
+CREATE INDEX l_partkey_idx on lineitem (l_partkey);"
+fi
+
+# Always analyze after bulk-loading; when hacking Postgres, typically Postgres
+# is run with autovacuum turned off.
+echo "Running analyze..."
+psql -p $PGPORT -d $DB_NAME -c "analyze"
+# Checkpoint, so we have a "clean slate". Just in-case.
+echo "Checkpointing..."
+psql -p $PGPORT -d $DB_NAME -c "checkpoint"
+
+
+cd $BASEDIR
+for i in $(seq 1 22);
+do
+  ii=$(printf "%02d" $i)
+  mkdir -p "../queries"
+  DSS_QUERY=queries ./qgen $i >../queries/q$ii.sql
+done
+
+printf 'Elapsed time: %s\n' $(timer $t)
+
+pg_ctl stop -D "$PGDATADIR"
+
