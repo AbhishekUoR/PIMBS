@@ -1,0 +1,541 @@
+Starting redis #0 at port 30000
+Starting redis #1 at port 30001
+Starting redis #2 at port 30002
+Starting redis #3 at port 30003
+Starting redis #4 at port 30004
+Starting redis #5 at port 30005
+Starting redis #6 at port 30006
+Starting redis #7 at port 30007
+Starting redis #8 at port 30008
+Starting redis #9 at port 30009
+Starting redis #10 at port 30010
+Starting redis #11 at port 30011
+Starting redis #12 at port 30012
+Starting redis #13 at port 30013
+Starting redis #14 at port 30014
+Starting redis #15 at port 30015
+Starting redis #16 at port 30016
+Starting redis #17 at port 30017
+Starting redis #18 at port 30018
+Starting redis #19 at port 30019
+Testing unit: 00-base.tcl
+18:05:58> (init) Restart killed instances: OK
+18:05:58> Cluster nodes are reachable: OK
+18:05:58> Cluster nodes hard reset: OK
+18:05:59> Cluster Join and auto-discovery test: OK
+18:06:03> Before slots allocation, all nodes report cluster failure: OK
+18:06:03> Different nodes have different IDs: OK
+18:06:03> It is possible to perform slot allocation: OK
+18:06:03> After the join, every node gets a different config epoch: OK
+18:06:04> Nodes should report cluster_state is ok now: OK
+18:06:07> It is possible to write and read from the cluster: OK
+Testing unit: 01-faildet.tcl
+18:06:07> (init) Restart killed instances: OK
+18:06:07> Cluster nodes are reachable: OK
+18:06:07> Cluster nodes hard reset: OK
+18:06:09> Cluster Join and auto-discovery test: OK
+18:06:12> Before slots allocation, all nodes report cluster failure: OK
+18:06:12> Create a 5 nodes cluster: OK
+18:06:16> Cluster should start ok: OK
+18:06:16> Killing two slave nodes: OK
+18:06:18> Cluster should be still up: OK
+18:06:18> Killing one master node: OK
+18:06:19> Cluster should be down now: OK
+18:06:21> Restarting master node: OK
+18:06:21> Cluster should be up again: OK
+Testing unit: 02-failover.tcl
+18:06:28> (init) Restart killed instances: redis/5 redis/6 OK
+18:06:28> Cluster nodes are reachable: OK
+18:06:28> Cluster nodes hard reset: OK
+18:06:30> Cluster Join and auto-discovery test: OK
+18:06:34> Before slots allocation, all nodes report cluster failure: OK
+18:06:34> Create a 5 nodes cluster: OK
+18:06:38> Cluster is up: OK
+18:06:38> Cluster is writable: OK
+18:06:38> Instance #5 is a slave: OK
+18:06:38> Instance #5 synced with the master: OK
+18:06:38> Killing one master node: OK
+18:06:39> Wait for failover: OK
+18:06:42> Cluster should eventually be up again: OK
+18:06:42> Cluster is writable: OK
+18:06:42> Instance #5 is now a master: OK
+18:06:42> Restarting the previously killed master node: OK
+18:06:42> Instance #0 gets converted into a slave: OK
+Testing unit: 03-failover-loop.tcl
+18:06:42> (init) Restart killed instances: OK
+18:06:42> Cluster nodes are reachable: OK
+18:06:42> Cluster nodes hard reset: OK
+18:06:44> Cluster Join and auto-discovery test: OK
+18:06:48> Before slots allocation, all nodes report cluster failure: OK
+18:06:48> Create a 5 nodes cluster: OK
+18:06:52> Cluster is up: OK
+--- Iteration 19 ---
+18:06:52> Cluster is writable before failover: OK
+18:06:52> Killing node #9: OK
+18:06:53> Cluster should eventually be up again: OK
+18:06:53> Cluster is writable again: OK
+18:06:53> Restarting node #9: OK
+18:06:53> Instance #9 is now a slave: OK
+18:06:53> We can read back the value we set before: OK
+--- Iteration 18 ---
+18:06:53> Wait for slave of #0 to sync: OK
+18:06:53> Cluster is writable before failover: OK
+18:06:53> Killing node #0: OK
+18:06:54> Wait failover by #5 with old epoch 1: OK
+18:06:58> Cluster should eventually be up again: OK
+18:06:58> Cluster is writable again: OK
+18:06:58> Restarting node #0: OK
+18:06:58> Instance #0 is now a slave: OK
+18:06:58> We can read back the value we set before: OK
+--- Iteration 17 ---
+18:06:58> Wait for slave of #4 to sync: OK
+18:06:58> Cluster is writable before failover: OK
+18:06:58> Killing node #4: OK
+18:06:59> Wait failover by #9 with old epoch 5: OK
+18:07:03> Cluster should eventually be up again: OK
+18:07:03> Cluster is writable again: OK
+18:07:03> Restarting node #4: OK
+18:07:03> Instance #4 is now a slave: OK
+18:07:03> We can read back the value we set before: OK
+--- Iteration 16 ---
+18:07:04> Wait for slave of #3 to sync: OK
+18:07:04> Cluster is writable before failover: OK
+18:07:04> Killing node #3: OK
+18:07:05> Wait failover by #8 with old epoch 4: OK
+18:07:08> Cluster should eventually be up again: OK
+18:07:08> Cluster is writable again: OK
+18:07:08> Restarting node #3: OK
+18:07:08> Instance #3 is now a slave: OK
+18:07:08> We can read back the value we set before: OK
+--- Iteration 15 ---
+18:07:08> Cluster is writable before failover: OK
+18:07:08> Killing node #6: OK
+18:07:09> Cluster should eventually be up again: OK
+18:07:09> Cluster is writable again: OK
+18:07:09> Restarting node #6: OK
+18:07:09> Instance #6 is now a slave: OK
+18:07:09> We can read back the value we set before: OK
+--- Iteration 14 ---
+18:07:10> Wait for slave of #2 to sync: OK
+18:07:10> Cluster is writable before failover: OK
+18:07:10> Killing node #2: OK
+18:07:11> Wait failover by #7 with old epoch 3: OK
+18:07:14> Cluster should eventually be up again: OK
+18:07:14> Cluster is writable again: OK
+18:07:14> Restarting node #2: OK
+18:07:14> Instance #2 is now a slave: OK
+18:07:14> We can read back the value we set before: OK
+--- Iteration 13 ---
+18:07:15> Wait for slave of #7 to sync: OK
+18:07:15> Cluster is writable before failover: OK
+18:07:15> Killing node #7: OK
+18:07:16> Wait failover by #2 with old epoch 24: OK
+18:07:19> Cluster should eventually be up again: OK
+18:07:20> Cluster is writable again: OK
+18:07:20> Restarting node #7: OK
+18:07:20> Instance #7 is now a slave: OK
+18:07:20> We can read back the value we set before: OK
+--- Iteration 12 ---
+18:07:20> Cluster is writable before failover: OK
+18:07:20> Killing node #0: OK
+18:07:21> Cluster should eventually be up again: OK
+18:07:21> Cluster is writable again: OK
+18:07:21> Restarting node #0: OK
+18:07:21> Instance #0 is now a slave: OK
+18:07:21> We can read back the value we set before: OK
+--- Iteration 11 ---
+18:07:21> Cluster is writable before failover: OK
+18:07:21> Killing node #7: OK
+18:07:22> Cluster should eventually be up again: OK
+18:07:22> Cluster is writable again: OK
+18:07:22> Restarting node #7: OK
+18:07:22> Instance #7 is now a slave: OK
+18:07:22> We can read back the value we set before: OK
+--- Iteration 10 ---
+18:07:23> Wait for slave of #1 to sync: OK
+18:07:23> Cluster is writable before failover: OK
+18:07:23> Killing node #1: OK
+18:07:24> Wait failover by #6 with old epoch 2: OK
+18:07:27> Cluster should eventually be up again: OK
+18:07:27> Cluster is writable again: OK
+18:07:27> Restarting node #1: OK
+18:07:27> Instance #1 is now a slave: OK
+18:07:27> We can read back the value we set before: OK
+--- Iteration 9 ---
+18:07:28> Cluster is writable before failover: OK
+18:07:28> Killing node #3: OK
+18:07:29> Cluster should eventually be up again: OK
+18:07:29> Cluster is writable again: OK
+18:07:29> Restarting node #3: OK
+18:07:29> Instance #3 is now a slave: OK
+18:07:29> We can read back the value we set before: OK
+--- Iteration 8 ---
+18:07:29> Wait for slave of #9 to sync: OK
+18:07:29> Cluster is writable before failover: OK
+18:07:29> Killing node #9: OK
+18:07:30> Wait failover by #4 with old epoch 22: OK
+18:07:33> Cluster should eventually be up again: OK
+18:07:34> Cluster is writable again: OK
+18:07:34> Restarting node #9: OK
+18:07:34> Instance #9 is now a slave: OK
+18:07:34> We can read back the value we set before: OK
+--- Iteration 7 ---
+18:07:34> Cluster is writable before failover: OK
+18:07:34> Killing node #3: OK
+18:07:35> Cluster should eventually be up again: OK
+18:07:35> Cluster is writable again: OK
+18:07:35> Restarting node #3: OK
+18:07:35> Instance #3 is now a slave: OK
+18:07:35> We can read back the value we set before: OK
+--- Iteration 6 ---
+18:07:35> Cluster is writable before failover: OK
+18:07:35> Killing node #1: OK
+18:07:36> Cluster should eventually be up again: OK
+18:07:36> Cluster is writable again: OK
+18:07:36> Restarting node #1: OK
+18:07:36> Instance #1 is now a slave: OK
+18:07:36> We can read back the value we set before: OK
+--- Iteration 5 ---
+18:07:36> Cluster is writable before failover: OK
+18:07:36> Killing node #0: OK
+18:07:37> Cluster should eventually be up again: OK
+18:07:37> Cluster is writable again: OK
+18:07:37> Restarting node #0: OK
+18:07:37> Instance #0 is now a slave: OK
+18:07:37> We can read back the value we set before: OK
+--- Iteration 4 ---
+18:07:37> Cluster is writable before failover: OK
+18:07:37> Killing node #9: OK
+18:07:38> Cluster should eventually be up again: OK
+18:07:38> Cluster is writable again: OK
+18:07:38> Restarting node #9: OK
+18:07:38> Instance #9 is now a slave: OK
+18:07:38> We can read back the value we set before: OK
+--- Iteration 3 ---
+18:07:38> Cluster is writable before failover: OK
+18:07:38> Killing node #7: OK
+18:07:39> Cluster should eventually be up again: OK
+18:07:39> Cluster is writable again: OK
+18:07:39> Restarting node #7: OK
+18:07:39> Instance #7 is now a slave: OK
+18:07:39> We can read back the value we set before: OK
+--- Iteration 2 ---
+18:07:39> Wait for slave of #2 to sync: OK
+18:07:41> Cluster is writable before failover: OK
+18:07:41> Killing node #2: OK
+18:07:42> Wait failover by #7 with old epoch 25: OK
+18:07:45> Cluster should eventually be up again: OK
+18:07:45> Cluster is writable again: OK
+18:07:45> Restarting node #2: OK
+18:07:45> Instance #2 is now a slave: OK
+18:07:45> We can read back the value we set before: OK
+--- Iteration 1 ---
+18:07:46> Wait for slave of #7 to sync: OK
+18:07:46> Cluster is writable before failover: OK
+18:07:46> Killing node #7: OK
+18:07:47> Wait failover by #2 with old epoch 28: OK
+18:07:51> Cluster should eventually be up again: OK
+18:07:51> Cluster is writable again: OK
+18:07:51> Restarting node #7: OK
+18:07:51> Instance #7 is now a slave: OK
+18:07:51> We can read back the value we set before: OK
+18:07:51> Post condition: current_epoch >= my_epoch everywhere: OK
+Testing unit: 04-resharding.tcl
+18:07:51> (init) Restart killed instances: OK
+18:07:51> Cluster nodes are reachable: OK
+18:07:51> Cluster nodes hard reset: OK
+18:07:53> Cluster Join and auto-discovery test: OK
+18:07:56> Before slots allocation, all nodes report cluster failure: OK
+18:07:56> Create a 5 nodes cluster: OK
+18:08:00> Cluster is up: OK
+18:08:00> Cluster consistency during live resharding: WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW...Starting resharding...W...............W.......................................W........................W..............................W.........WWWW........................W................................................W....................WW...........................W..................W........................W.....................W............W............................W...................W..............................W.................W...................W............................W...................W..........................W................................W......................W.....................W............................W..........................W..................W..........................W...........WWW.........W...............W............................W.........................W..................W...............W...........................W.............W............................W.............................W...................W.......WWWWW.......................W.................W................................W..............W...............................W...............WWW...Starting resharding...W..............................W..............................W........................W........................WWWW...........................W...........................W........................W.................WWW......WW..............W..........W.......................W.......................W...........................W..................W........WW.............W...................W.................WW.................W...............................WWWW........W............WW..........W................W...................W.......................W.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................OK
+18:08:32> Verify 50000 keys for consistency with logical content: OK
+Testing unit: 05-slave-selection.tcl
+18:08:39> (init) Restart killed instances: OK
+18:08:39> Cluster nodes are reachable: OK
+18:08:39> Cluster nodes hard reset: OK
+18:08:41> Cluster Join and auto-discovery test: OK
+18:08:45> Before slots allocation, all nodes report cluster failure: OK
+18:08:45> Create a 5 nodes cluster: OK
+18:08:48> Cluster is up: OK
+18:08:48> The first master has actually two slaves: OK
+18:08:48> Slaves of #0 are instance #5 and #10 as expected: OK
+18:08:48> Instance #5 and #10 synced with the master: OK
+18:08:48> Slaves are both able to receive and acknowledge writes: OK
+18:08:48> Write data while slave #10 is paused and can't receive it: OK
+18:08:59> Wait for instance #5 (and not #10) to turn into a master: OK
+18:09:02> Wait for the node #10 to return alive before ending the test: OK
+18:09:03> Cluster should eventually be up again: OK
+18:09:03> Node #10 should eventually replicate node #5: OK
+Testing unit: 06-slave-stop-cond.tcl
+18:09:03> (init) Restart killed instances: redis/0 OK
+18:09:03> Cluster nodes are reachable: OK
+18:09:03> Cluster nodes hard reset: OK
+18:09:05> Cluster Join and auto-discovery test: OK
+18:09:09> Before slots allocation, all nodes report cluster failure: OK
+18:09:09> Create a 5 nodes cluster: OK
+18:09:13> Cluster is up: OK
+18:09:13> The first master has actually one slave: OK
+18:09:13> Slaves of #0 is instance #5 as expected: OK
+18:09:13> Instance #5 synced with the master: OK
+18:09:13> Lower the slave validity factor of #5 to the value of 2: OK
+18:09:13> Break master-slave link and prevent further reconnections: OK
+18:09:34> Slave #5 is reachable and alive: OK
+18:09:34> Slave #5 should not be able to failover: OK
+18:09:44> Cluster should be down: OK
+Testing unit: 07-replica-migration.tcl
+18:09:44> (init) Restart killed instances: redis/0 OK
+18:09:44> Cluster nodes are reachable: OK
+18:09:45> Cluster nodes hard reset: OK
+18:09:47> Cluster Join and auto-discovery test: OK
+18:09:50> Before slots allocation, all nodes report cluster failure: OK
+18:09:51> Create a 5 nodes cluster: OK
+18:09:55> Cluster is up: OK
+18:09:55> Each master should have two replicas attached: OK
+18:09:55> Killing all the slaves of master #0 and #1: OK
+18:10:03> Master #0 should have at least one replica: OK
+18:10:03> Master #1 should have at least one replica: OK
+18:10:03> Master #2 should have at least one replica: OK
+18:10:03> Master #3 should have at least one replica: OK
+18:10:03> Master #4 should have at least one replica: OK
+Testing unit: 08-update-msg.tcl
+18:10:03> (init) Restart killed instances: redis/5 redis/6 redis/10 redis/11 OK
+18:10:03> Cluster nodes are reachable: OK
+18:10:03> Cluster nodes hard reset: OK
+18:10:05> Cluster Join and auto-discovery test: OK
+18:10:09> Before slots allocation, all nodes report cluster failure: OK
+18:10:09> Create a 5 nodes cluster: OK
+18:10:13> Cluster is up: OK
+18:10:13> Cluster is writable: OK
+18:10:13> Instance #5 is a slave: OK
+18:10:13> Instance #5 synced with the master: OK
+18:10:13> Killing one master node: OK
+18:10:14> Wait for failover: OK
+18:10:17> Cluster should eventually be up again: OK
+18:10:17> Cluster is writable: OK
+18:10:17> Instance #5 is now a master: OK
+18:10:17> Killing the new master #5: OK
+18:10:18> Cluster should be down now: OK
+18:10:20> Restarting the old master node: OK
+18:10:20> Instance #0 gets converted into a slave: OK
+18:10:21> Restarting the new master node: OK
+18:10:21> Cluster is up again: OK
+Testing unit: 09-pubsub.tcl
+18:10:28> (init) Restart killed instances: OK
+18:10:28> Cluster nodes are reachable: OK
+18:10:28> Cluster nodes hard reset: OK
+18:10:30> Cluster Join and auto-discovery test: OK
+18:10:34> Before slots allocation, all nodes report cluster failure: OK
+18:10:34> Create a 5 nodes cluster: OK
+18:10:38> Test publishing to master: OK
+18:10:38> Test publishing to slave: OK
+Testing unit: 10-manual-failover.tcl
+18:10:38> (init) Restart killed instances: OK
+18:10:38> Cluster nodes are reachable: OK
+18:10:38> Cluster nodes hard reset: OK
+18:10:40> Cluster Join and auto-discovery test: OK
+18:10:43> Before slots allocation, all nodes report cluster failure: OK
+18:10:43> Create a 5 nodes cluster: OK
+18:10:47> Cluster is up: OK
+18:10:47> Cluster is writable: OK
+18:10:47> Instance #5 is a slave: OK
+18:10:47> Instance #5 synced with the master: OK
+18:10:47> Send CLUSTER FAILOVER to #5, during load: WWWWWWWWWWOK
+18:10:49> Wait for failover: OK
+18:10:49> Cluster should eventually be up again: OK
+18:10:49> Cluster is writable: OK
+18:10:49> Instance #5 is now a master: OK
+18:10:49> Verify 50000 keys for consistency with logical content: OK
+18:10:50> Instance #0 gets converted into a slave: OK
+18:10:50> (init) Restart killed instances: OK
+18:10:50> Cluster nodes are reachable: OK
+18:10:50> Cluster nodes hard reset: OK
+18:10:52> Cluster Join and auto-discovery test: OK
+18:10:56> Before slots allocation, all nodes report cluster failure: OK
+18:10:56> Create a 5 nodes cluster: OK
+18:11:00> Cluster is up: OK
+18:11:00> Cluster is writable: OK
+18:11:00> Instance #5 is a slave: OK
+18:11:00> Instance #5 synced with the master: OK
+18:11:00> Make instance #0 unreachable without killing it: OK
+18:11:00> Send CLUSTER FAILOVER to instance #5: OK
+18:11:00> Instance #5 is still a slave after some time (no failover): OK
+18:11:05> Wait for instance #0 to return back alive: OK
+18:11:10> (init) Restart killed instances: OK
+18:11:10> Cluster nodes are reachable: OK
+18:11:10> Cluster nodes hard reset: OK
+18:11:12> Cluster Join and auto-discovery test: OK
+18:11:15> Before slots allocation, all nodes report cluster failure: OK
+18:11:15> Create a 5 nodes cluster: OK
+18:11:20> Cluster is up: OK
+18:11:20> Cluster is writable: OK
+18:11:20> Instance #5 is a slave: OK
+18:11:20> Instance #5 synced with the master: OK
+18:11:20> Make instance #0 unreachable without killing it: OK
+18:11:20> Send CLUSTER FAILOVER to instance #5: OK
+18:11:20> Instance #5 is a master after some time: OK
+18:11:20> Wait for instance #0 to return back alive: OK
+Testing unit: 11-manual-takeover.tcl
+18:11:30> (init) Restart killed instances: OK
+18:11:30> Cluster nodes are reachable: OK
+18:11:30> Cluster nodes hard reset: OK
+18:11:32> Cluster Join and auto-discovery test: OK
+18:11:35> Before slots allocation, all nodes report cluster failure: OK
+18:11:35> Create a 5 nodes cluster: OK
+18:11:39> Cluster is up: OK
+18:11:39> Cluster is writable: OK
+18:11:39> Killing majority of master nodes: OK
+18:11:42> Cluster should eventually be down: OK
+18:11:42> Use takeover to bring slaves back: OK
+18:11:43> Cluster should eventually be up again: OK
+18:11:44> Cluster is writable: OK
+18:11:44> Instance #5, #6, #7 are now masters: OK
+18:11:44> Restarting the previously killed master nodes: OK
+18:11:44> Instance #0, #1, #2 gets converted into a slaves: OK
+Cleaning up...
+GOOD! No errors.
+
+General Exploration Metrics
+---------------------------
+Parameter                              r021ge          
+-------------------------------------  ----------------
+Clockticks                             175670263505.000
+Instructions Retired                   308934463401    
+CPI Rate                               0.569           
+Filled Pipeline Slots                  0.0             
+ Retiring                              0.447           
+  General Retirement                   0.435           
+  Microcode Sequencer                  0.012           
+ Bad Speculation                       0.062           
+  Branch Mispredict                    0.062           
+  Machine Clears                       0.001           
+Unfilled Pipeline Slots (Stalls)       0.0             
+ Back-End Bound                        0.150           
+  Memory Bound                         0.203           
+   L1 Bound                            0.065           
+    DTLB Overhead                      0.066           
+    Loads Blocked by Store Forwarding  0.014           
+    Split Loads                        0.0             
+    4K Aliasing                        0.023           
+   L3 Bound                            0.0             
+    Contested Accesses                 0.017           
+    Data Sharing                       0.006           
+    LLC Hit                            0.117           
+   DRAM Bound                          0.0             
+    LLC Miss                           0.079           
+   Store Bound                         0.021           
+    False Sharing                      0.019           
+    Split Stores                       0.001           
+    DTLB Store Overhead                0.031           
+  Core Bound                           0.300           
+   Port Utilization                    0.0             
+    Cycles of 0 Ports Utilized         0.294           
+    Cycles of 1 Port Utilized          0.128           
+    Cycles of 2 Ports Utilized         0.169           
+    Cycles of 3+ Ports Utilized        0.409           
+ Front-End Bound                       0.341           
+  Front-End Latency                    0.211           
+   ICache Misses                       0.082           
+   ITLB Overhead                       0.011           
+   Branch Resteers                     0.031           
+   DSB Switches                        0.031           
+   Length Changing Prefixes            0.002           
+   MS Switches                         0.012           
+  Front-End Bandwidth                  0.129           
+   Front-End Bandwidth DSB             0.116           
+   Front-End Bandwidth MITE            0.230           
+
+Collection and Platform Info
+----------------------------
+Parameter                 r021ge                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/redis-3.0.1/runtest-cluster                                                                 
+User Name                 root                                                                                                          
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               204076190                                                                                                     
+Collection start time     01:05:55 22/05/2015 UTC                                                                                       
+Collection stop time      01:11:45 22/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r021ge                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292359000                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       349.914
+CPU Time:           71.757 
+Average CPU Usage:  0.141  
+CPI Rate:           0.569  
+
+Event summary
+-------------
+Hardware Event Type                                                  Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+-------------------------------------------------------------------  -------------------------  --------------------------------  -----------------
+CPU_CLK_UNHALTED.REF_TSC                                                          236248354372                            118124  2000003          
+CPU_CLK_UNHALTED.THREAD                                                           175670263505                             87835  2000003          
+INST_RETIRED.ANY                                                                  308934463401                            154467  2000003          
+L1D_PEND_MISS.PENDING                                                              49664074496                              3104  2000003          
+OFFCORE_RESPONSE:request=DEMAND_RFO:response=L3_HIT.HITM_OTHER_CORE                    5600168                                 7  100003           
+CYCLE_ACTIVITY.STALLS_LDM_PENDING                                                  31920047880                              1995  2000003          
+CYCLE_ACTIVITY.CYCLES_NO_EXECUTE                                                   51648077472                              3228  2000003          
+OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_DATA_RD                           157968236952                              9873  2000003          
+OFFCORE_REQUESTS_OUTSTANDING.DEMAND_DATA_RD                                       136336204504                              8521  2000003          
+DTLB_LOAD_MISSES.STLB_HIT                                                           1216001824                                76  2000003          
+DTLB_LOAD_MISSES.WALK_DURATION                                                      3168004752                               198  2000003          
+CYCLE_ACTIVITY.STALLS_L1D_PENDING                                                  20528030792                              1283  2000003          
+MEM_LOAD_UOPS_RETIRED.L3_HIT_PS                                                      463794712                              1159  50021            
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT_PS                                              13447392                                84  20011            
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM_PS                                             34739096                               217  20011            
+DTLB_STORE_MISSES.STLB_HIT                                                           361610848                               452  100003           
+RS_EVENTS.EMPTY_CYCLES                                                             19088028632                              1193  2000003          
+RESOURCE_STALLS.SB                                                                  3696005544                               231  2000003          
+DTLB_STORE_MISSES.WALK_DURATION                                                      415212456                               519  100003           
+MEM_LOAD_UOPS_RETIRED.L1_MISS                                                       1041631248                              1302  100003           
+UOPS_EXECUTED.CYCLES_GE_1_UOPS_EXEC                                               123936185904                              7746  2000003          
+UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC                                               101520152280                              6345  2000003          
+UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC                                                71872107808                              4492  2000003          
+IDQ.MS_UOPS                                                                         9136013704                               571  2000003          
+ILD_STALL.LCP                                                                        432000648                                27  2000003          
+IDQ.ALL_MITE_CYCLES_4_UOPS                                                         12608018912                               788  2000003          
+IDQ.ALL_MITE_CYCLES_ANY_UOPS                                                       52928079392                              3308  2000003          
+IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE                                    37152055728                              2322  2000003          
+BR_MISP_RETIRED.ALL_BRANCHES_PS                                                      636814328                               199  400009           
+IDQ_UOPS_NOT_DELIVERED.CORE                                                       239424359136                             14964  2000003          
+MEM_UOPS_RETIRED.ALL_STORES_PS                                                     45344068016                              2834  2000003          
+IDQ.ALL_DSB_CYCLES_4_UOPS                                                          31056046584                              1941  2000003          
+IDQ.ALL_DSB_CYCLES_ANY_UOPS                                                        51472077208                              3217  2000003          
+ICACHE.MISSES                                                                       1651224768                              1032  200003           
+ITLB_MISSES.WALK_DURATION                                                           1713651408                              2142  100003           
+MEM_UOPS_RETIRED.SPLIT_LOADS_PS                                                       31200936                                39  100003           
+MEM_UOPS_RETIRED.SPLIT_STORES_PS                                                      24800744                                31  100003           
+CYCLE_ACTIVITY.STALLS_L2_PENDING                                                   20656030984                              1291  2000003          
+MEM_LOAD_UOPS_RETIRED.L3_MISS_PS                                                      76805376                                96  100007           
+L1D.REPLACEMENT                                                                     1872002808                               117  2000003          
+L2_LINES_IN.ALL                                                                     3180095400                              3975  100003           
+LD_BLOCKS.STORE_FORWARD                                                              195205856                               244  100003           
+LD_BLOCKS_PARTIAL.ADDRESS_ALIAS                                                      584017520                               730  100003           
+MEM_LOAD_UOPS_RETIRED.HIT_LFB                                                       1179235376                              1474  100003           
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS_PS                                             10405720                                65  20011            
+MACHINE_CLEARS.MASKMOV                                                                       0                                 0  100003           
+MACHINE_CLEARS.MEMORY_ORDERING                                                         4000120                                 5  100003           
+MACHINE_CLEARS.SMC                                                                     3200096                                 4  100003           
+UOPS_ISSUED.ANY                                                                   341936512904                             21371  2000003          
+UOPS_RETIRED.RETIRE_SLOTS                                                         314128471192                             19633  2000003          
+INT_MISC.RECOVERY_CYCLES                                                            4016006024                               251  2000003          
+CPU_CLK_UNHALTED.THREAD_P                                                         175120262680                             10945  2000003          
+ICACHE.IFETCH_STALL                                                                14368021552                               898  2000003          
+LD_BLOCKS.NO_SR                                                                              0                                 0  100003           
+MACHINE_CLEARS.COUNT                                                                   8000240                                10  100003           
+RS_EVENTS.EMPTY_END                                                                 1326419896                               829  200003           
+IDQ.MS_SWITCHES                                                                     1072001608                                67  2000003          
+BACLEARS.ANY                                                                         864825944                              1081  100003           
+DSB2MITE_SWITCHES.PENALTY_CYCLES                                                    5360008040                               335  2000003          
+ITLB_MISSES.STLB_HIT                                                                  39201176                                49  100003           

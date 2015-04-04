@@ -1,0 +1,428 @@
+Starting redis #0 at port 30000
+Starting redis #1 at port 30001
+Starting redis #2 at port 30002
+Starting redis #3 at port 30003
+Starting redis #4 at port 30004
+Starting redis #5 at port 30005
+Starting redis #6 at port 30006
+Starting redis #7 at port 30007
+Starting redis #8 at port 30008
+Starting redis #9 at port 30009
+Starting redis #10 at port 30010
+Starting redis #11 at port 30011
+Starting redis #12 at port 30012
+Starting redis #13 at port 30013
+Starting redis #14 at port 30014
+Starting redis #15 at port 30015
+Starting redis #16 at port 30016
+Starting redis #17 at port 30017
+Starting redis #18 at port 30018
+Starting redis #19 at port 30019
+[0;33;49mTesting unit: 00-base.tcl[0m
+16:50:42> (init) Restart killed instances: [0;32;49mOK[0m
+16:50:42> Cluster nodes are reachable: [0;32;49mOK[0m
+16:50:42> Cluster nodes hard reset: [0;32;49mOK[0m
+16:50:43> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:50:46> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:50:46> Different nodes have different IDs: [0;32;49mOK[0m
+16:50:46> It is possible to perform slot allocation: [0;32;49mOK[0m
+16:50:47> After the join, every node gets a different config epoch: [0;32;49mOK[0m
+16:50:48> Nodes should report cluster_state is ok now: [0;32;49mOK[0m
+16:50:50> It is possible to write and read from the cluster: [0;32;49mOK[0m
+[0;33;49mTesting unit: 01-faildet.tcl[0m
+16:50:50> (init) Restart killed instances: [0;32;49mOK[0m
+16:50:50> Cluster nodes are reachable: [0;32;49mOK[0m
+16:50:50> Cluster nodes hard reset: [0;32;49mOK[0m
+16:50:52> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:50:56> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:50:56> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:51:00> Cluster should start ok: [0;32;49mOK[0m
+16:51:00> Killing two slave nodes: [0;32;49mOK[0m
+16:51:00> Cluster should be still up: [0;32;49mOK[0m
+16:51:00> Killing one master node: [0;32;49mOK[0m
+16:51:00> Cluster should be down now: [0;32;49mOK[0m
+16:51:03> Restarting master node: [0;32;49mOK[0m
+16:51:03> Cluster should be up again: [0;32;49mOK[0m
+[0;33;49mTesting unit: 02-failover.tcl[0m
+16:51:11> (init) Restart killed instances: redis/5 redis/6 [0;32;49mOK[0m
+16:51:11> Cluster nodes are reachable: [0;32;49mOK[0m
+16:51:11> Cluster nodes hard reset: [0;32;49mOK[0m
+16:51:13> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:51:16> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:51:16> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:51:20> Cluster is up: [0;32;49mOK[0m
+16:51:20> Cluster is writable: [0;32;49mOK[0m
+16:51:20> Instance #5 is a slave: [0;32;49mOK[0m
+16:51:20> Instance #5 synced with the master: [0;32;49mOK[0m
+16:51:20> Killing one master node: [0;32;49mOK[0m
+16:51:21> Wait for failover: [0;32;49mOK[0m
+16:51:24> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:24> Cluster is writable: [0;32;49mOK[0m
+16:51:24> Instance #5 is now a master: [0;32;49mOK[0m
+16:51:24> Restarting the previously killed master node: [0;32;49mOK[0m
+16:51:25> Instance #0 gets converted into a slave: [0;32;49mOK[0m
+[0;33;49mTesting unit: 03-failover-loop.tcl[0m
+16:51:25> (init) Restart killed instances: [0;32;49mOK[0m
+16:51:25> Cluster nodes are reachable: [0;32;49mOK[0m
+16:51:25> Cluster nodes hard reset: [0;32;49mOK[0m
+16:51:26> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:51:30> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:51:30> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:51:34> Cluster is up: [0;32;49mOK[0m
+--- Iteration 19 ---
+16:51:34> Wait for slave of #2 to sync: [0;32;49mOK[0m
+16:51:34> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:34> Killing node #2: [0;32;49mOK[0m
+16:51:35> Wait failover by #7 with old epoch 3: [0;32;49mOK[0m
+16:51:38> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:38> Cluster is writable again: [0;32;49mOK[0m
+16:51:38> Restarting node #2: [0;32;49mOK[0m
+16:51:39> Instance #2 is now a slave: [0;32;49mOK[0m
+16:51:39> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 18 ---
+16:51:39> Wait for slave of #0 to sync: [0;32;49mOK[0m
+16:51:39> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:39> Killing node #0: [0;32;49mOK[0m
+16:51:40> Wait failover by #5 with old epoch 1: [0;32;49mOK[0m
+16:51:43> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:44> Cluster is writable again: [0;32;49mOK[0m
+16:51:44> Restarting node #0: [0;32;49mOK[0m
+16:51:44> Instance #0 is now a slave: [0;32;49mOK[0m
+16:51:44> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 17 ---
+16:51:44> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:44> Killing node #2: [0;32;49mOK[0m
+16:51:44> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:44> Cluster is writable again: [0;32;49mOK[0m
+16:51:44> Restarting node #2: [0;32;49mOK[0m
+16:51:44> Instance #2 is now a slave: [0;32;49mOK[0m
+16:51:44> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 16 ---
+16:51:44> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:44> Killing node #9: [0;32;49mOK[0m
+16:51:44> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:44> Cluster is writable again: [0;32;49mOK[0m
+16:51:44> Restarting node #9: [0;32;49mOK[0m
+16:51:44> Instance #9 is now a slave: [0;32;49mOK[0m
+16:51:44> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 15 ---
+16:51:45> Wait for slave of #3 to sync: [0;32;49mOK[0m
+16:51:45> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:45> Killing node #3: [0;32;49mOK[0m
+16:51:46> Wait failover by #8 with old epoch 4: [0;32;49mOK[0m
+16:51:49> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:49> Cluster is writable again: [0;32;49mOK[0m
+16:51:49> Restarting node #3: [0;32;49mOK[0m
+16:51:49> Instance #3 is now a slave: [0;32;49mOK[0m
+16:51:49> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 14 ---
+16:51:49> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:49> Killing node #9: [0;32;49mOK[0m
+16:51:49> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:49> Cluster is writable again: [0;32;49mOK[0m
+16:51:49> Restarting node #9: [0;32;49mOK[0m
+16:51:50> Instance #9 is now a slave: [0;32;49mOK[0m
+16:51:50> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 13 ---
+16:51:50> Wait for slave of #4 to sync: [0;32;49mOK[0m
+16:51:51> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:51> Killing node #4: [0;32;49mOK[0m
+16:51:52> Wait failover by #9 with old epoch 5: [0;32;49mOK[0m
+16:51:55> Cluster should eventually be up again: [0;32;49mOK[0m
+16:51:55> Cluster is writable again: [0;32;49mOK[0m
+16:51:55> Restarting node #4: [0;32;49mOK[0m
+16:51:55> Instance #4 is now a slave: [0;32;49mOK[0m
+16:51:55> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 12 ---
+16:51:56> Wait for slave of #1 to sync: [0;32;49mOK[0m
+16:51:56> Cluster is writable before failover: [0;32;49mOK[0m
+16:51:56> Killing node #1: [0;32;49mOK[0m
+16:51:57> Wait failover by #6 with old epoch 2: [0;32;49mOK[0m
+16:52:00> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:00> Cluster is writable again: [0;32;49mOK[0m
+16:52:00> Restarting node #1: [0;32;49mOK[0m
+16:52:01> Instance #1 is now a slave: [0;32;49mOK[0m
+16:52:01> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 11 ---
+16:52:01> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:01> Killing node #1: [0;32;49mOK[0m
+16:52:01> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:01> Cluster is writable again: [0;32;49mOK[0m
+16:52:01> Restarting node #1: [0;32;49mOK[0m
+16:52:01> Instance #1 is now a slave: [0;32;49mOK[0m
+16:52:01> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 10 ---
+16:52:01> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:01> Killing node #0: [0;32;49mOK[0m
+16:52:01> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:01> Cluster is writable again: [0;32;49mOK[0m
+16:52:01> Restarting node #0: [0;32;49mOK[0m
+16:52:01> Instance #0 is now a slave: [0;32;49mOK[0m
+16:52:01> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 9 ---
+16:52:01> Wait for slave of #5 to sync: [0;32;49mOK[0m
+16:52:02> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:02> Killing node #5: [0;32;49mOK[0m
+16:52:03> Wait failover by #0 with old epoch 22: [0;32;49mOK[0m
+16:52:07> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:07> Cluster is writable again: [0;32;49mOK[0m
+16:52:07> Restarting node #5: [0;32;49mOK[0m
+16:52:07> Instance #5 is now a slave: [0;32;49mOK[0m
+16:52:07> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 8 ---
+16:52:07> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:07> Killing node #3: [0;32;49mOK[0m
+16:52:07> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:07> Cluster is writable again: [0;32;49mOK[0m
+16:52:07> Restarting node #3: [0;32;49mOK[0m
+16:52:07> Instance #3 is now a slave: [0;32;49mOK[0m
+16:52:07> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 7 ---
+16:52:08> Wait for slave of #6 to sync: [0;32;49mOK[0m
+16:52:08> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:08> Killing node #6: [0;32;49mOK[0m
+16:52:08> Wait failover by #1 with old epoch 25: [0;32;49mOK[0m
+16:52:12> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:12> Cluster is writable again: [0;32;49mOK[0m
+16:52:12> Restarting node #6: [0;32;49mOK[0m
+16:52:12> Instance #6 is now a slave: [0;32;49mOK[0m
+16:52:12> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 6 ---
+16:52:12> Wait for slave of #8 to sync: [0;32;49mOK[0m
+16:52:13> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:13> Killing node #8: [0;32;49mOK[0m
+16:52:13> Wait failover by #3 with old epoch 23: [0;32;49mOK[0m
+16:52:17> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:17> Cluster is writable again: [0;32;49mOK[0m
+16:52:17> Restarting node #8: [0;32;49mOK[0m
+16:52:17> Instance #8 is now a slave: [0;32;49mOK[0m
+16:52:17> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 5 ---
+16:52:17> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:17> Killing node #8: [0;32;49mOK[0m
+16:52:17> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:17> Cluster is writable again: [0;32;49mOK[0m
+16:52:17> Restarting node #8: [0;32;49mOK[0m
+16:52:18> Instance #8 is now a slave: [0;32;49mOK[0m
+16:52:18> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 4 ---
+16:52:18> Wait for slave of #9 to sync: [0;32;49mOK[0m
+16:52:18> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:18> Killing node #9: [0;32;49mOK[0m
+16:52:19> Wait failover by #4 with old epoch 24: [0;32;49mOK[0m
+16:52:22> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:22> Cluster is writable again: [0;32;49mOK[0m
+16:52:22> Restarting node #9: [0;32;49mOK[0m
+16:52:22> Instance #9 is now a slave: [0;32;49mOK[0m
+16:52:22> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 3 ---
+16:52:23> Wait for slave of #3 to sync: [0;32;49mOK[0m
+16:52:23> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:23> Killing node #3: [0;32;49mOK[0m
+16:52:23> Wait failover by #8 with old epoch 28: [0;32;49mOK[0m
+16:52:27> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:27> Cluster is writable again: [0;32;49mOK[0m
+16:52:27> Restarting node #3: [0;32;49mOK[0m
+16:52:27> Instance #3 is now a slave: [0;32;49mOK[0m
+16:52:27> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 2 ---
+16:52:27> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:27> Killing node #5: [0;32;49mOK[0m
+16:52:27> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:27> Cluster is writable again: [0;32;49mOK[0m
+16:52:27> Restarting node #5: [0;32;49mOK[0m
+16:52:28> Instance #5 is now a slave: [0;32;49mOK[0m
+16:52:28> We can read back the value we set before: [0;32;49mOK[0m
+--- Iteration 1 ---
+16:52:28> Wait for slave of #1 to sync: [0;32;49mOK[0m
+16:52:28> Cluster is writable before failover: [0;32;49mOK[0m
+16:52:28> Killing node #1: [0;32;49mOK[0m
+16:52:29> Wait failover by #6 with old epoch 27: [0;32;49mOK[0m
+16:52:32> Cluster should eventually be up again: [0;32;49mOK[0m
+16:52:32> Cluster is writable again: [0;32;49mOK[0m
+16:52:33> Restarting node #1: [0;32;49mOK[0m
+16:52:33> Instance #1 is now a slave: [0;32;49mOK[0m
+16:52:33> We can read back the value we set before: [0;32;49mOK[0m
+16:52:33> Post condition: current_epoch >= my_epoch everywhere: [0;32;49mOK[0m
+[0;33;49mTesting unit: 04-resharding.tcl[0m
+16:52:33> (init) Restart killed instances: [0;32;49mOK[0m
+16:52:33> Cluster nodes are reachable: [0;32;49mOK[0m
+16:52:33> Cluster nodes hard reset: [0;32;49mOK[0m
+16:52:35> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:52:38> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:52:38> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:52:42> Cluster is up: [0;32;49mOK[0m
+16:52:42> Cluster consistency during live resharding: WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW...Starting resharding...WWWWWWWWWW[0;32;49mOK[0m
+16:53:06> Verify 50000 keys for consistency with logical content: [0;32;49mOK[0m
+[0;33;49mTesting unit: 05-slave-selection.tcl[0m
+16:53:11> (init) Restart killed instances: [0;32;49mOK[0m
+16:53:11> Cluster nodes are reachable: [0;32;49mOK[0m
+16:53:11> Cluster nodes hard reset: [0;32;49mOK[0m
+16:53:13> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:53:17> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:53:17> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:53:21> Cluster is up: [0;32;49mOK[0m
+16:53:21> The first master has actually two slaves: [0;32;49mOK[0m
+16:53:21> Slaves of #0 are instance #5 and #10 as expected: [0;32;49mOK[0m
+16:53:21> Instance #5 and #10 synced with the master: [0;32;49mOK[0m
+16:53:21> Slaves are both able to receive and acknowledge writes: [0;32;49mOK[0m
+16:53:21> Write data while slave #10 is paused and can't receive it: [0;32;49mOK[0m
+16:53:31> Wait for instance #5 (and not #10) to turn into a master: [0;32;49mOK[0m
+16:53:36> Wait for the node #10 to return alive before ending the test: [0;32;49mOK[0m
+16:53:36> Cluster should eventually be up again: [0;32;49mOK[0m
+16:53:36> Node #10 should eventually replicate node #5: [0;32;49mOK[0m
+[0;33;49mTesting unit: 06-slave-stop-cond.tcl[0m
+16:53:37> (init) Restart killed instances: redis/0 [0;32;49mOK[0m
+16:53:37> Cluster nodes are reachable: [0;32;49mOK[0m
+16:53:37> Cluster nodes hard reset: [0;32;49mOK[0m
+16:53:39> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:53:43> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:53:43> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:53:46> Cluster is up: [0;32;49mOK[0m
+16:53:46> The first master has actually one slave: [0;32;49mOK[0m
+16:53:46> Slaves of #0 is instance #5 as expected: [0;32;49mOK[0m
+16:53:46> Instance #5 synced with the master: [0;32;49mOK[0m
+16:53:46> Lower the slave validity factor of #5 to the value of 2: [0;32;49mOK[0m
+16:53:46> Break master-slave link and prevent further reconnections: [0;32;49mOK[0m
+16:54:07> Slave #5 is reachable and alive: [0;32;49mOK[0m
+16:54:07> Slave #5 should not be able to failover: [0;32;49mOK[0m
+16:54:17> Cluster should be down: [0;32;49mOK[0m
+[0;33;49mTesting unit: 07-replica-migration.tcl[0m
+16:54:17> (init) Restart killed instances: redis/0 [0;32;49mOK[0m
+16:54:17> Cluster nodes are reachable: [0;32;49mOK[0m
+16:54:17> Cluster nodes hard reset: [0;32;49mOK[0m
+16:54:19> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:54:23> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:54:23> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:54:26> Cluster is up: [0;32;49mOK[0m
+16:54:27> Each master should have two replicas attached: [0;32;49mOK[0m
+16:54:27> Killing all the slaves of master #0 and #1: [0;32;49mOK[0m
+16:54:31> Master #0 should have at least one replica: [0;32;49mOK[0m
+16:54:31> Master #1 should have at least one replica: [0;32;49mOK[0m
+16:54:32> Master #2 should have at least one replica: [0;32;49mOK[0m
+16:54:32> Master #3 should have at least one replica: [0;32;49mOK[0m
+16:54:32> Master #4 should have at least one replica: [0;32;49mOK[0m
+[0;33;49mTesting unit: 08-update-msg.tcl[0m
+16:54:32> (init) Restart killed instances: redis/5 redis/6 redis/10 redis/11 [0;32;49mOK[0m
+16:54:32> Cluster nodes are reachable: [0;32;49mOK[0m
+16:54:32> Cluster nodes hard reset: [0;32;49mOK[0m
+16:54:34> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:54:38> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:54:38> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:54:42> Cluster is up: [0;32;49mOK[0m
+16:54:42> Cluster is writable: [0;32;49mOK[0m
+16:54:42> Instance #5 is a slave: [0;32;49mOK[0m
+16:54:42> Instance #5 synced with the master: [0;32;49mOK[0m
+16:54:42> Killing one master node: [0;32;49mOK[0m
+16:54:43> Wait for failover: [0;32;49mOK[0m
+16:54:46> Cluster should eventually be up again: [0;32;49mOK[0m
+16:54:46> Cluster is writable: [0;32;49mOK[0m
+16:54:46> Instance #5 is now a master: [0;32;49mOK[0m
+16:54:46> Killing the new master #5: [0;32;49mOK[0m
+16:54:47> Cluster should be down now: [0;32;49mOK[0m
+16:54:50> Restarting the old master node: [0;32;49mOK[0m
+16:54:50> Instance #0 gets converted into a slave: [0;32;49mOK[0m
+16:54:50> Restarting the new master node: [0;32;49mOK[0m
+16:54:50> Cluster is up again: [0;32;49mOK[0m
+[0;33;49mTesting unit: 09-pubsub.tcl[0m
+16:54:57> (init) Restart killed instances: [0;32;49mOK[0m
+16:54:57> Cluster nodes are reachable: [0;32;49mOK[0m
+16:54:57> Cluster nodes hard reset: [0;32;49mOK[0m
+16:54:59> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:55:02> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:55:02> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:55:06> Test publishing to master: [0;32;49mOK[0m
+16:55:06> Test publishing to slave: [0;32;49mOK[0m
+[0;33;49mTesting unit: 10-manual-failover.tcl[0m
+16:55:06> (init) Restart killed instances: [0;32;49mOK[0m
+16:55:06> Cluster nodes are reachable: [0;32;49mOK[0m
+16:55:06> Cluster nodes hard reset: [0;32;49mOK[0m
+16:55:08> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:55:12> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:55:12> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:55:15> Cluster is up: [0;32;49mOK[0m
+16:55:15> Cluster is writable: [0;32;49mOK[0m
+16:55:15> Instance #5 is a slave: [0;32;49mOK[0m
+16:55:15> Instance #5 synced with the master: [0;32;49mOK[0m
+16:55:16> Send CLUSTER FAILOVER to #5, during load: WWWWWWWWWW[0;32;49mOK[0m
+16:55:17> Wait for failover: [0;32;49mOK[0m
+16:55:17> Cluster should eventually be up again: [0;32;49mOK[0m
+16:55:17> Cluster is writable: [0;32;49mOK[0m
+16:55:18> Instance #5 is now a master: [0;32;49mOK[0m
+16:55:18> Verify 50000 keys for consistency with logical content: [0;32;49mOK[0m
+16:55:18> Instance #0 gets converted into a slave: [0;32;49mOK[0m
+16:55:18> (init) Restart killed instances: [0;32;49mOK[0m
+16:55:18> Cluster nodes are reachable: [0;32;49mOK[0m
+16:55:18> Cluster nodes hard reset: [0;32;49mOK[0m
+16:55:20> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:55:23> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:55:23> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:55:28> Cluster is up: [0;32;49mOK[0m
+16:55:28> Cluster is writable: [0;32;49mOK[0m
+16:55:28> Instance #5 is a slave: [0;32;49mOK[0m
+16:55:28> Instance #5 synced with the master: [0;32;49mOK[0m
+16:55:28> Make instance #0 unreachable without killing it: [0;32;49mOK[0m
+16:55:28> Send CLUSTER FAILOVER to instance #5: [0;32;49mOK[0m
+16:55:28> Instance #5 is still a slave after some time (no failover): [0;32;49mOK[0m
+16:55:33> Wait for instance #0 to return back alive: [0;32;49mOK[0m
+16:55:38> (init) Restart killed instances: [0;32;49mOK[0m
+16:55:38> Cluster nodes are reachable: [0;32;49mOK[0m
+16:55:38> Cluster nodes hard reset: [0;32;49mOK[0m
+16:55:40> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:55:43> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:55:44> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:55:48> Cluster is up: [0;32;49mOK[0m
+16:55:48> Cluster is writable: [0;32;49mOK[0m
+16:55:48> Instance #5 is a slave: [0;32;49mOK[0m
+16:55:48> Instance #5 synced with the master: [0;32;49mOK[0m
+16:55:48> Make instance #0 unreachable without killing it: [0;32;49mOK[0m
+16:55:48> Send CLUSTER FAILOVER to instance #5: [0;32;49mOK[0m
+16:55:48> Instance #5 is a master after some time: [0;32;49mOK[0m
+16:55:48> Wait for instance #0 to return back alive: [0;32;49mOK[0m
+[0;33;49mTesting unit: 11-manual-takeover.tcl[0m
+16:55:58> (init) Restart killed instances: [0;32;49mOK[0m
+16:55:58> Cluster nodes are reachable: [0;32;49mOK[0m
+16:55:58> Cluster nodes hard reset: [0;32;49mOK[0m
+16:56:00> Cluster Join and auto-discovery test: [0;32;49mOK[0m
+16:56:04> Before slots allocation, all nodes report cluster failure: [0;32;49mOK[0m
+16:56:04> Create a 5 nodes cluster: [0;32;49mOK[0m
+16:56:08> Cluster is up: [0;32;49mOK[0m
+16:56:08> Cluster is writable: [0;32;49mOK[0m
+16:56:08> Killing majority of master nodes: [0;32;49mOK[0m
+16:56:10> Cluster should eventually be down: [0;32;49mOK[0m
+16:56:11> Use takeover to bring slaves back: [0;32;49mOK[0m
+16:56:12> Cluster should eventually be up again: [0;32;49mOK[0m
+16:56:13> Cluster is writable: [0;32;49mOK[0m
+16:56:13> Instance #5, #6, #7 are now masters: [0;32;49mOK[0m
+16:56:13> Restarting the previously killed master nodes: [0;32;49mOK[0m
+16:56:13> Instance #0, #1, #2 gets converted into a slaves: [0;32;49mOK[0m
+Cleaning up...
+GOOD! No errors.
+
+Collection and Platform Info
+----------------------------
+Parameter                 r015hs                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/redis-3.0.1/runtest-cluster                                                                 
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               5867349                                                                                                       
+Collection start time     23:50:39 21/05/2015 UTC                                                                                       
+Collection stop time      23:56:17 21/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r015hs                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292359000                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       337.911
+CPU Time:           29.590 
+Average CPU Usage:  0.091  

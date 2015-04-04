@@ -1,0 +1,272 @@
+Starting redis #0 at port 30000
+Starting redis #1 at port 30001
+Starting redis #2 at port 30002
+Starting redis #3 at port 30003
+Starting redis #4 at port 30004
+Starting redis #5 at port 30005
+Starting redis #6 at port 30006
+Starting redis #7 at port 30007
+Starting redis #8 at port 30008
+Starting redis #9 at port 30009
+Starting redis #10 at port 30010
+Starting redis #11 at port 30011
+Starting redis #12 at port 30012
+Starting redis #13 at port 30013
+Starting redis #14 at port 30014
+Starting redis #15 at port 30015
+Starting redis #16 at port 30016
+Starting redis #17 at port 30017
+Starting redis #18 at port 30018
+Starting redis #19 at port 30019
+Testing unit: 00-base.tcl
+18:12:16> (init) Restart killed instances: OK
+18:12:16> Cluster nodes are reachable: OK
+18:12:16> Cluster nodes hard reset: OK
+18:12:17> Cluster Join and auto-discovery test: OK
+18:12:21> Before slots allocation, all nodes report cluster failure: OK
+18:12:21> Different nodes have different IDs: OK
+18:12:21> It is possible to perform slot allocation: OK
+18:12:21> After the join, every node gets a different config epoch: .OK
+18:12:23> Nodes should report cluster_state is ok now: OK
+18:12:25> It is possible to write and read from the cluster: OK
+Testing unit: 01-faildet.tcl
+18:12:25> (init) Restart killed instances: OK
+18:12:25> Cluster nodes are reachable: OK
+18:12:25> Cluster nodes hard reset: OK
+18:12:27> Cluster Join and auto-discovery test: OK
+18:12:30> Before slots allocation, all nodes report cluster failure: OK
+18:12:30> Create a 5 nodes cluster: OK
+18:12:34> Cluster should start ok: OK
+18:12:34> Killing two slave nodes: OK
+18:12:36> Cluster should be still up: OK
+18:12:36> Killing one master node: OK
+18:12:37> Cluster should be down now: OK
+18:12:39> Restarting master node: OK
+18:12:39> Cluster should be up again: OK
+Testing unit: 02-failover.tcl
+18:12:46> (init) Restart killed instances: redis/5 redis/6 OK
+18:12:46> Cluster nodes are reachable: OK
+18:12:46> Cluster nodes hard reset: OK
+18:12:48> Cluster Join and auto-discovery test: OK
+18:12:51> Before slots allocation, all nodes report cluster failure: OK
+18:12:51> Create a 5 nodes cluster: OK
+18:12:56> Cluster is up: OK
+18:12:56> Cluster is writable: OK
+18:12:56> Instance #5 is a slave: OK
+18:12:56> Instance #5 synced with the master: OK
+18:12:56> Killing one master node: OK
+18:12:57> Wait for failover: OK
+18:13:00> Cluster should eventually be up again: OK
+18:13:00> Cluster is writable: OK
+18:13:00> Instance #5 is now a master: OK
+18:13:00> Restarting the previously killed master node: OK
+18:13:00> Instance #0 gets converted into a slave: OK
+Testing unit: 03-failover-loop.tcl
+18:13:01> (init) Restart killed instances: OK
+18:13:01> Cluster nodes are reachable: OK
+18:13:01> Cluster nodes hard reset: OK
+18:13:03> Cluster Join and auto-discovery test: OK
+18:13:06> Before slots allocation, all nodes report cluster failure: OK
+18:13:07> Create a 5 nodes cluster: OK
+18:13:11> Cluster is up: OK
+--- Iteration 19 ---
+18:13:11> Cluster is writable before failover: OK
+18:13:11> Killing node #8: OK
+18:13:12> Cluster should eventually be up again: OK
+18:13:12> Cluster is writable again: OK
+18:13:12> Restarting node #8: OK
+18:13:12> Instance #8 is now a slave: OK
+18:13:12> We can read back the value we set before: OK
+--- Iteration 18 ---
+18:13:12> Cluster is writable before failover: OK
+18:13:12> Killing node #7: OK
+18:13:13> Cluster should eventually be up again: OK
+18:13:13> Cluster is writable again: OK
+18:13:13> Restarting node #7: OK
+18:13:13> Instance #7 is now a slave: OK
+18:13:13> We can read back the value we set before: OK
+--- Iteration 17 ---
+18:13:13> Wait for slave of #2 to sync: OK
+18:13:14> Cluster is writable before failover: OK
+18:13:14> Killing node #2: OK
+18:13:15> Wait failover by #7 with old epoch 3: OK
+18:13:19> Cluster should eventually be up again: OK
+18:13:19> Cluster is writable again: OK
+18:13:19> Restarting node #2: OK
+18:13:19> Instance #2 is now a slave: OK
+18:13:19> We can read back the value we set before: OK
+--- Iteration 16 ---
+18:13:19> Wait for slave of #7 to sync: OK
+18:13:20> Cluster is writable before failover: OK
+18:13:20> Killing node #7: OK
+18:13:21> Wait failover by #2 with old epoch 21: OK
+18:13:24> Cluster should eventually be up again: OK
+18:13:25> Cluster is writable again: OK
+18:13:25> Restarting node #7: OK
+18:13:25> Instance #7 is now a slave: OK
+18:13:25> We can read back the value we set before: OK
+--- Iteration 15 ---
+18:13:25> Cluster is writable before failover: OK
+18:13:25> Killing node #8: OK
+18:13:26> Cluster should eventually be up again: OK
+18:13:26> Cluster is writable again: OK
+18:13:26> Restarting node #8: OK
+18:13:26> Instance #8 is now a slave: OK
+18:13:26> We can read back the value we set before: OK
+--- Iteration 14 ---
+18:13:26> Wait for slave of #1 to sync: OK
+18:13:26> Cluster is writable before failover: OK
+18:13:26> Killing node #1: OK
+18:13:27> Wait failover by #6 with old epoch 2: OK
+18:13:31> Cluster should eventually be up again: OK
+18:13:31> Cluster is writable again: OK
+18:13:31> Restarting node #1: OK
+18:13:31> Instance #1 is now a slave: OK
+18:13:31> We can read back the value we set before: OK
+--- Iteration 13 ---
+18:13:31> Wait for slave of #4 to sync: OK
+18:13:31> Cluster is writable before failover: OK
+18:13:31> Killing node #4: OK
+18:13:32> Wait failover by #9 with old epoch 5: OK
+18:13:36> Cluster should eventually be up again: OK
+18:13:36> Cluster is writable again: OK
+18:13:36> Restarting node #4: OK
+18:13:36> Instance #4 is now a slave: OK
+18:13:36> We can read back the value we set before: OK
+--- Iteration 12 ---
+18:13:36> Cluster is writable before failover: OK
+18:13:36> Killing node #4: OK
+18:13:37> Cluster should eventually be up again: OK
+18:13:37> Cluster is writable again: OK
+18:13:37> Restarting node #4: OK
+18:13:37> Instance #4 is now a slave: OK
+18:13:37> We can read back the value we set before: OK
+--- Iteration 11 ---
+18:13:37> Cluster is writable before failover: OK
+18:13:37> Killing node #8: OK
+18:13:38> Cluster should eventually be up again: OK
+18:13:38> Cluster is writable again: OK
+18:13:38> Restarting node #8: OK
+18:13:38> Instance #8 is now a slave: OK
+18:13:38> We can read back the value we set before: OK
+--- Iteration 10 ---
+18:13:38> Cluster is writable before failover: OK
+18:13:38> Killing node #4: OK
+18:13:39> Cluster should eventually be up again: OK
+18:13:39> Cluster is writable again: OK
+18:13:39> Restarting node #4: OK
+18:13:39> Instance #4 is now a slave: OK
+18:13:39> We can read back the value we set before: OK
+--- Iteration 9 ---
+18:13:39> Cluster is writable before failover: OK
+18:13:39> Killing node #1: OK
+18:13:40> Cluster should eventually be up again: OK
+18:13:40> Cluster is writable again: OK
+18:13:40> Restarting node #1: OK
+18:13:40> Instance #1 is now a slave: OK
+18:13:40> We can read back the value we set before: OK
+--- Iteration 8 ---
+18:13:40> Cluster is writable before failover: OK
+18:13:40> Killing node #1: OK
+18:13:41> Cluster should eventually be up again: OK
+18:13:41> Cluster is writable again: OK
+18:13:41> Restarting node #1: OK
+18:13:41> Instance #1 is now a slave: OK
+18:13:41> We can read back the value we set before: OK
+--- Iteration 7 ---
+18:13:41> Cluster is writable before failover: OK
+18:13:41> Killing node #1: OK
+18:13:42> Cluster should eventually be up again: OK
+18:13:42> Cluster is writable again: OK
+18:13:42> Restarting node #1: OK
+18:13:42> Instance #1 is now a slave: OK
+18:13:42> We can read back the value we set before: OK
+--- Iteration 6 ---
+18:13:42> Cluster is writable before failover: OK
+18:13:42> Killing node #4: OK
+18:13:43> Cluster should eventually be up again: OK
+18:13:43> Cluster is writable again: OK
+18:13:43> Restarting node #4: OK
+18:13:43> Instance #4 is now a slave: OK
+18:13:43> We can read back the value we set before: OK
+--- Iteration 5 ---
+18:13:44> Wait for slave of #0 to sync: OK
+18:13:44> Cluster is writable before failover: OK
+18:13:44> Killing node #0: OK
+18:13:45> Wait failover by #5 with old epoch 1: OK
+18:13:48> Cluster should eventually be up again: OK
+18:13:48> Cluster is writable again: OK
+18:13:49> Restarting node #0: OK
+18:13:49> Instance #0 is now a slave: OK
+18:13:49> We can read back the value we set before: OK
+--- Iteration 4 ---
+18:13:49> Cluster is writable before failover: OK
+18:13:49> Killing node #1: OK
+18:13:50> Cluster should eventually be up again: OK
+18:13:50> Cluster is writable again: OK
+18:13:50> Restarting node #1: OK
+18:13:50> Instance #1 is now a slave: OK
+18:13:50> We can read back the value we set before: OK
+--- Iteration 3 ---
+18:13:50> Cluster is writable before failover: OK
+18:13:50> Killing node #0: OK
+18:13:51> Cluster should eventually be up again: OK
+18:13:51> Cluster is writable again: OK
+18:13:51> Restarting node #0: WARNING: Aborting the test.
+>>>>>>>> Problems starting redis #0: ping timeout
+Cleaning up...
+
+Collection and Platform Info
+----------------------------
+Parameter                 r022bw                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/redis-3.0.1/runtest-cluster                                                                 
+User Name                 root                                                                                                          
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               91656108                                                                                                      
+Collection start time     01:12:15 22/05/2015 UTC                                                                                       
+Collection stop time      01:13:56 22/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r022bw                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292359000                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       100.716
+CPU Time:           10.792 
+Average CPU Usage:  0.045  
+CPI Rate:           0.541  
+
+Average Bandwidth
+-----------------
+Package    Bandwidth, GB/sec:Self
+---------  ----------------------
+package_0                   0.309
+
+Event summary
+-------------
+Hardware Event Type                       Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+----------------------------------------  -------------------------  --------------------------------  -----------------
+CPU_CLK_UNHALTED.THREAD                                 26916040374                             13458  2000003          
+CPU_CLK_UNHALTED.REF_TSC                                35532053298                             17766  2000003          
+INST_RETIRED.ANY                                        49710074565                             24855  2000003          
+MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM                   19201344                               192  100007           
+
+Uncore Event summary
+--------------------
+Hardware Event Type       Hardware Event Count:Self
+------------------------  -------------------------
+UNC_IMC_DRAM_GT_REQUESTS                          0
+UNC_IMC_DRAM_IA_REQUESTS                  378256545
+UNC_IMC_DRAM_IO_REQUESTS                  106712687
+UNC_IMC_DRAM_DATA_READS                   330280583
+UNC_IMC_DRAM_DATA_WRITES                  155866590
