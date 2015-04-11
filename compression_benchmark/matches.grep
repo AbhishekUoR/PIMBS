@@ -1,0 +1,13 @@
+^Type
+^[[:digit:]]
+^gz
+^bzip2
+^xz
+^7zip-lzma
+^7zip-lzma2
+^7zip-PPMd
+^zip-deflate
+^tamp
+^lzop
+^lz4
+^[[:alnum:]]{32}
