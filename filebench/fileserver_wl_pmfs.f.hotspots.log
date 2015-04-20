@@ -1,0 +1,57 @@
+Filebench Version 1.4.9.1
+14418: 0.000: Allocated 170MB of shared memory
+14418: 0.001: File-server Version 3.0 personality successfully loaded
+14418: 0.001: Populating and pre-allocating filesets
+14418: 0.009: bigfileset populated: 10000 files, avg. dir. width = 0, avg. dir. depth = 3.1, 20 leafdirs, 1240.757MB total size
+14418: 0.009: Removing bigfileset tree (if exists)
+14418: 0.205: Pre-allocating directories in bigfileset tree
+14418: 0.208: Pre-allocating files in bigfileset tree
+14418: 0.385: Pre-allocated 7979 of 10000 files in bigfileset in 1 seconds
+14418: 0.385: Waiting for pre-allocation to finish (in case of a parallel pre-allocation)
+14418: 0.385: Population and pre-allocation of filesets completed
+14453: 0.386: Starting 1 filereader instances
+14454: 0.432: Starting 50 filereaderthread threads
+14418: 1.647: Running...
+14418: 61.654: Run took 60 seconds...
+14418: 61.662: Per-Operation Breakdown
+statfile1            46424ops      774ops/s   0.0mb/s      0.0ms/op     7934us/op-cpu [0ms - 1ms]
+deletefile1          46425ops      774ops/s   0.0mb/s      0.0ms/op     7920us/op-cpu [0ms - 15ms]
+closefile3           46427ops      774ops/s   0.0mb/s      0.0ms/op     7932us/op-cpu [0ms - 1ms]
+readfile1            46428ops      774ops/s 100.7mb/s      0.1ms/op     8002us/op-cpu [0ms - 5ms]
+openfile2            46432ops      774ops/s   0.0mb/s      0.0ms/op     7947us/op-cpu [0ms - 22ms]
+closefile2           46437ops      774ops/s   0.0mb/s      0.0ms/op     7966us/op-cpu [0ms - 5ms]
+appendfilerand1      46442ops      774ops/s   6.0mb/s      0.0ms/op     7896us/op-cpu [0ms - 1ms]
+openfile1            46446ops      774ops/s   0.0mb/s      0.0ms/op     7985us/op-cpu [0ms - 10ms]
+closefile1           46451ops      774ops/s   0.0mb/s      0.0ms/op     7910us/op-cpu [0ms - 1ms]
+wrtfile1             46461ops      774ops/s  96.3mb/s      0.1ms/op     7950us/op-cpu [0ms - 1ms]
+createfile1          46467ops      774ops/s   0.0mb/s      0.1ms/op     8019us/op-cpu [0ms - 13ms]
+14418: 61.662: IO Summary: 510840 ops, 8513.191 ops/s, (774/1548 r/w), 203.1mb/s,   1179us cpu/op,   0.1ms latency
+14418: 61.662: Shutting down processes
+
+Collection and Platform Info
+----------------------------
+Parameter                 r000hs                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/filebench/filebench "-f" "/home/ziyang/Pmem/filebench/fileserver_wl_pmfs.f"                 
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               6895934                                                                                                       
+Collection start time     09:58:50 21/05/2015 UTC                                                                                       
+Collection stop time      09:59:53 21/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r000hs                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292375832                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       62.754 
+CPU Time:           161.490
+Average CPU Usage:  2.326  

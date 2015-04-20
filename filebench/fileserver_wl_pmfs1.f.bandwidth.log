@@ -1,0 +1,84 @@
+Filebench Version 1.4.9.1
+16094: 0.000: Allocated 170MB of shared memory
+16094: 0.000: File-server Version 3.0 personality successfully loaded
+16094: 0.000: Populating and pre-allocating filesets
+16094: 0.006: bigfileset populated: 10000 files, avg. dir. width = 0, avg. dir. depth = 3.1, 20 leafdirs, 1240.757MB total size
+16094: 0.006: Removing bigfileset tree (if exists)
+16094: 3.278: Pre-allocating directories in bigfileset tree
+16094: 3.281: Pre-allocating files in bigfileset tree
+16094: 3.437: Pre-allocated 7979 of 10000 files in bigfileset in 1 seconds
+16094: 3.437: Waiting for pre-allocation to finish (in case of a parallel pre-allocation)
+16094: 3.437: Population and pre-allocation of filesets completed
+16115: 3.437: Starting 1 filereader instances
+16116: 3.437: Starting 50 filereaderthread threads
+16094: 4.547: Running...
+16094: 904.624: Run took 900 seconds...
+16094: 904.631: Per-Operation Breakdown
+statfile1            720310ops      800ops/s   0.0mb/s      0.0ms/op     6557us/op-cpu [0ms - 1ms]
+deletefile1          720313ops      800ops/s   0.0mb/s      0.0ms/op     6690us/op-cpu [0ms - 89ms]
+closefile3           720320ops      800ops/s   0.0mb/s      0.0ms/op     6521us/op-cpu [0ms - 89ms]
+readfile1            720324ops      800ops/s 105.5mb/s      0.1ms/op     6704us/op-cpu [0ms - 2ms]
+openfile2            720327ops      800ops/s   0.0mb/s      0.0ms/op     6725us/op-cpu [0ms - 90ms]
+closefile2           720332ops      800ops/s   0.0mb/s      0.0ms/op     6510us/op-cpu [0ms - 1ms]
+appendfilerand1      720335ops      800ops/s   6.3mb/s      0.0ms/op     6642us/op-cpu [0ms - 3ms]
+openfile1            720340ops      800ops/s   0.0mb/s      0.0ms/op     6730us/op-cpu [0ms - 15ms]
+closefile1           720343ops      800ops/s   0.0mb/s      0.0ms/op     6530us/op-cpu [0ms - 89ms]
+wrtfile1             720352ops      800ops/s  99.4mb/s      0.1ms/op     6725us/op-cpu [0ms - 4ms]
+createfile1          720357ops      800ops/s   0.0mb/s      0.1ms/op     6758us/op-cpu [0ms - 69ms]
+16094: 904.631: IO Summary: 7923653 ops, 8803.325 ops/s, (800/1601 r/w), 211.2mb/s,    987us cpu/op,   0.1ms latency
+16094: 904.632: Shutting down processes
+
+Collection and Platform Info
+----------------------------
+Parameter                 r015bw                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/filebench/filebench "-f" "/home/ziyang/Pmem/filebench/fileserver_wl_pmfs1.f"                
+User Name                 root                                                                                                          
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               2001002150                                                                                                    
+Collection start time     12:57:02 21/05/2015 UTC                                                                                       
+Collection stop time      13:10:32 21/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r015bw                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292375823                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       810.351 
+CPU Time:           1843.570
+Average CPU Usage:  2.220   
+CPI Rate:           1.386   
+
+Average Bandwidth
+-----------------
+Package    Bandwidth, GB/sec:Self
+---------  ----------------------
+package_0                   0.549
+
+Event summary
+-------------
+Hardware Event Type                       Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+----------------------------------------  -------------------------  --------------------------------  -----------------
+CPU_CLK_UNHALTED.THREAD                               1599020398527                            799509  2000003          
+CPU_CLK_UNHALTED.REF_TSC                              6069725104574                           3034858  2000003          
+INST_RETIRED.ANY                                      1153411730115                            576705  2000003          
+MEM_LOAD_UOPS_L3_MISS_RETIRED.LOCAL_DRAM                  884261894                              8842  100007           
+
+Uncore Event summary
+--------------------
+Hardware Event Type       Hardware Event Count:Self
+------------------------  -------------------------
+UNC_IMC_DRAM_GT_REQUESTS                          0
+UNC_IMC_DRAM_IA_REQUESTS                 6889679695
+UNC_IMC_DRAM_IO_REQUESTS                   20100163
+UNC_IMC_DRAM_DATA_READS                  3791555006
+UNC_IMC_DRAM_DATA_WRITES                 3155500475

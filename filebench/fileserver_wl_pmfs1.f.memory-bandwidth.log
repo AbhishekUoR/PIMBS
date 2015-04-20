@@ -1,0 +1,190 @@
+Filebench Version 1.4.9.1
+15782: 0.000: Allocated 170MB of shared memory
+15782: 0.022: File-server Version 3.0 personality successfully loaded
+15782: 0.022: Populating and pre-allocating filesets
+15782: 0.052: bigfileset populated: 10000 files, avg. dir. width = 0, avg. dir. depth = 3.1, 20 leafdirs, 1240.757MB total size
+15782: 0.052: Removing bigfileset tree (if exists)
+15782: 3.520: Pre-allocating directories in bigfileset tree
+15782: 3.523: Pre-allocating files in bigfileset tree
+15782: 3.681: Pre-allocated 7979 of 10000 files in bigfileset in 1 seconds
+15782: 3.681: Waiting for pre-allocation to finish (in case of a parallel pre-allocation)
+15782: 3.681: Population and pre-allocation of filesets completed
+15803: 3.681: Starting 1 filereader instances
+15804: 3.682: Starting 50 filereaderthread threads
+15782: 4.731: Running...
+15782: 904.806: Run took 900 seconds...
+15782: 904.814: Per-Operation Breakdown
+statfile1            751031ops      834ops/s   0.0mb/s      0.0ms/op     6580us/op-cpu [0ms - 1ms]
+deletefile1          751033ops      834ops/s   0.0mb/s      0.0ms/op     6635us/op-cpu [0ms - 1ms]
+closefile3           751046ops      834ops/s   0.0mb/s      0.0ms/op     6523us/op-cpu [0ms - 2ms]
+readfile1            751048ops      834ops/s 110.0mb/s      0.1ms/op     6664us/op-cpu [0ms - 1ms]
+openfile2            751049ops      834ops/s   0.0mb/s      0.0ms/op     6665us/op-cpu [0ms - 172ms]
+closefile2           751055ops      834ops/s   0.0mb/s      0.0ms/op     6535us/op-cpu [0ms - 172ms]
+appendfilerand1      751060ops      834ops/s   6.5mb/s      0.0ms/op     6569us/op-cpu [0ms - 1ms]
+openfile1            751061ops      834ops/s   0.0mb/s      0.0ms/op     6660us/op-cpu [0ms - 134ms]
+closefile1           751067ops      834ops/s   0.0mb/s      0.0ms/op     6534us/op-cpu [0ms - 1ms]
+wrtfile1             751071ops      834ops/s 103.6mb/s      0.1ms/op     6679us/op-cpu [0ms - 4ms]
+createfile1          751076ops      834ops/s   0.0mb/s      0.1ms/op     6693us/op-cpu [0ms - 134ms]
+15782: 904.814: IO Summary: 8261597 ops, 9178.794 ops/s, (834/1669 r/w), 220.2mb/s,    982us cpu/op,   0.1ms latency
+15782: 904.814: Shutting down processes
+
+General Exploration Metrics
+---------------------------
+Parameter                              r012ge          
+-------------------------------------  ----------------
+Clockticks                             898037347054.000
+Instructions Retired                   647076970614    
+CPI Rate                               1.388           
+Filled Pipeline Slots                  0.0             
+ Retiring                              0.235           
+  General Retirement                   0.188           
+  Microcode Sequencer                  0.047           
+ Bad Speculation                       0.034           
+  Branch Mispredict                    0.033           
+  Machine Clears                       0.001           
+Unfilled Pipeline Slots (Stalls)       0.0             
+ Back-End Bound                        0.495           
+  Memory Bound                         0.375           
+   L1 Bound                            0.166           
+    DTLB Overhead                      0.044           
+    Loads Blocked by Store Forwarding  0.022           
+    Split Loads                        0.0             
+    4K Aliasing                        0.018           
+   L3 Bound                            0.0             
+    Contested Accesses                 0.123           
+    Data Sharing                       0.026           
+    LLC Hit                            0.343           
+   DRAM Bound                          0.0             
+    LLC Miss                           0.098           
+   Store Bound                         0.036           
+    False Sharing                      0.178           
+    Split Stores                       0.002           
+    DTLB Store Overhead                0.018           
+  Core Bound                           0.203           
+   Port Utilization                    0.0             
+    Cycles of 0 Ports Utilized         0.540           
+    Cycles of 1 Port Utilized          0.182           
+    Cycles of 2 Ports Utilized         0.116           
+    Cycles of 3+ Ports Utilized        0.162           
+ Front-End Bound                       0.236           
+  Front-End Latency                    0.180           
+   ICache Misses                       0.083           
+   ITLB Overhead                       0.011           
+   Branch Resteers                     0.036           
+   DSB Switches                        0.010           
+   Length Changing Prefixes            0.001           
+   MS Switches                         0.072           
+  Front-End Bandwidth                  0.056           
+   Front-End Bandwidth DSB             0.056           
+   Front-End Bandwidth MITE            0.184           
+
+Collection and Platform Info
+----------------------------
+Parameter                 r012ge                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/filebench/filebench "-f" "/home/ziyang/Pmem/filebench/fileserver_wl_pmfs1.f"                
+User Name                 root                                                                                                          
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               1520532437                                                                                                    
+Collection start time     12:04:23 21/05/2015 UTC                                                                                       
+Collection stop time      12:12:05 21/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r012ge                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292375824                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       462.171 
+CPU Time:           1014.123
+Average CPU Usage:  2.158   
+CPI Rate:           1.388   
+
+Average Bandwidth
+-----------------
+Package    Bandwidth, GB/sec:Self
+---------  ----------------------
+package_0                   0.561
+
+Event summary
+-------------
+Hardware Event Type                                                  Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+-------------------------------------------------------------------  -------------------------  --------------------------------  -----------------
+CPU_CLK_UNHALTED.REF_TSC                                                         3338873008302                           1669434  2000003          
+CPU_CLK_UNHALTED.THREAD                                                           898037347054                            449018  2000003          
+INST_RETIRED.ANY                                                                  647076970614                            323538  2000003          
+L1D_PEND_MISS.PENDING                                                             457936686904                             28621  2000003          
+OFFCORE_RESPONSE:request=DEMAND_RFO:response=L3_HIT.HITM_OTHER_CORE                  592017760                               740  100003           
+CYCLE_ACTIVITY.STALLS_LDM_PENDING                                                 304688457032                             19043  2000003          
+CYCLE_ACTIVITY.CYCLES_NO_EXECUTE                                                  485280727920                             30330  2000003          
+OFFCORE_REQUESTS_OUTSTANDING.CYCLES_WITH_DEMAND_DATA_RD                           889969334952                             55623  2000003          
+OFFCORE_REQUESTS_OUTSTANDING.DEMAND_DATA_RD                                       876689315032                             54793  2000003          
+DTLB_LOAD_MISSES.STLB_HIT                                                           2384003576                               149  2000003          
+DTLB_LOAD_MISSES.WALK_DURATION                                                     23088034632                              1443  2000003          
+CYCLE_ACTIVITY.STALLS_L1D_PENDING                                                 155616233424                              9726  2000003          
+MEM_LOAD_UOPS_RETIRED.L3_HIT_PS                                                     4858039520                             12140  50021            
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HIT_PS                                             326579520                              2040  20011            
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_HITM_PS                                           1307918960                              8170  20011            
+DTLB_STORE_MISSES.STLB_HIT                                                           348810464                               436  100003           
+RS_EVENTS.EMPTY_CYCLES                                                            161504242256                             10094  2000003          
+RESOURCE_STALLS.SB                                                                 32352048528                              2022  2000003          
+DTLB_STORE_MISSES.WALK_DURATION                                                     2000860024                              2501  100003           
+MEM_LOAD_UOPS_RETIRED.L1_MISS                                                      11468344040                             14335  100003           
+UOPS_EXECUTED.CYCLES_GE_1_UOPS_EXEC                                               413344620016                             25834  2000003          
+UOPS_EXECUTED.CYCLES_GE_2_UOPS_EXEC                                               249920374880                             15620  2000003          
+UOPS_EXECUTED.CYCLES_GE_3_UOPS_EXEC                                               145824218736                              9114  2000003          
+IDQ.MS_UOPS                                                                       184704277056                             11544  2000003          
+ILD_STALL.LCP                                                                        608000912                                38  2000003          
+IDQ.ALL_MITE_CYCLES_4_UOPS                                                         59152088728                              3697  2000003          
+IDQ.ALL_MITE_CYCLES_ANY_UOPS                                                      224640336960                             14040  2000003          
+IDQ_UOPS_NOT_DELIVERED.CYCLES_0_UOPS_DELIV.CORE                                   161840242760                             10115  2000003          
+BR_MISP_RETIRED.ALL_BRANCHES_PS                                                     1350430384                               422  400009           
+IDQ_UOPS_NOT_DELIVERED.CORE                                                       848849273272                             53053  2000003          
+MEM_UOPS_RETIRED.ALL_STORES_PS                                                    122640183960                              7665  2000003          
+IDQ.ALL_DSB_CYCLES_4_UOPS                                                          69552104328                              4347  2000003          
+IDQ.ALL_DSB_CYCLES_ANY_UOPS                                                       120288180432                              7518  2000003          
+ICACHE.MISSES                                                                       9384140760                              5865  200003           
+ITLB_MISSES.WALK_DURATION                                                           8392251760                             10490  100003           
+MEM_UOPS_RETIRED.SPLIT_LOADS_PS                                                       48001440                                60  100003           
+MEM_UOPS_RETIRED.SPLIT_STORES_PS                                                     291208736                               364  100003           
+CYCLE_ACTIVITY.STALLS_L2_PENDING                                                  147456221184                              9216  2000003          
+MEM_LOAD_UOPS_RETIRED.L3_MISS_PS                                                     489634272                               612  100007           
+L1D.REPLACEMENT                                                                    19568029352                              1223  2000003          
+L2_LINES_IN.ALL                                                                    24471934136                             30589  100003           
+LD_BLOCKS.STORE_FORWARD                                                             1523245696                              1904  100003           
+LD_BLOCKS_PARTIAL.ADDRESS_ALIAS                                                     2365670968                              2957  100003           
+MEM_LOAD_UOPS_RETIRED.HIT_LFB                                                      14351630536                             17939  100003           
+MEM_LOAD_UOPS_L3_HIT_RETIRED.XSNP_MISS_PS                                            238210944                              1488  20011            
+MACHINE_CLEARS.MASKMOV                                                                       0                                 0  100003           
+MACHINE_CLEARS.MEMORY_ORDERING                                                        23200696                                29  100003           
+MACHINE_CLEARS.SMC                                                                           0                                 0  100003           
+UOPS_ISSUED.ANY                                                                   917265375896                             57329  2000003          
+UOPS_RETIRED.RETIRE_SLOTS                                                         845761268640                             52860  2000003          
+INT_MISC.RECOVERY_CYCLES                                                           12336018504                               771  2000003          
+CPU_CLK_UNHALTED.THREAD_P                                                         900241350360                             56265  2000003          
+ICACHE.IFETCH_STALL                                                                74288111432                              4643  2000003          
+LD_BLOCKS.NO_SR                                                                              0                                 0  100003           
+MACHINE_CLEARS.COUNT                                                                  43201296                                54  100003           
+RS_EVENTS.EMPTY_END                                                                15773036592                              9858  200003           
+IDQ.MS_SWITCHES                                                                    32192048288                              2012  2000003          
+BACLEARS.ANY                                                                        4496934904                              5621  100003           
+DSB2MITE_SWITCHES.PENALTY_CYCLES                                                    8880013320                               555  2000003          
+ITLB_MISSES.STLB_HIT                                                                 192805784                               241  100003           
+
+Uncore Event summary
+--------------------
+Hardware Event Type       Hardware Event Count:Self
+------------------------  -------------------------
+UNC_IMC_DRAM_GT_REQUESTS                          0
+UNC_IMC_DRAM_IA_REQUESTS                 4017327158
+UNC_IMC_DRAM_IO_REQUESTS                   15470293
+UNC_IMC_DRAM_DATA_READS                  2252547425
+UNC_IMC_DRAM_DATA_WRITES                 1800627304

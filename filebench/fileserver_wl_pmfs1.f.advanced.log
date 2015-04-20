@@ -1,0 +1,70 @@
+Filebench Version 1.4.9.1
+15403: 0.000: Allocated 170MB of shared memory
+15403: 0.000: File-server Version 3.0 personality successfully loaded
+15403: 0.000: Populating and pre-allocating filesets
+15403: 0.007: bigfileset populated: 10000 files, avg. dir. width = 0, avg. dir. depth = 3.1, 20 leafdirs, 1240.757MB total size
+15403: 0.008: Removing bigfileset tree (if exists)
+15403: 20.429: Pre-allocating directories in bigfileset tree
+15403: 20.433: Pre-allocating files in bigfileset tree
+15403: 20.649: Pre-allocated 7979 of 10000 files in bigfileset in 1 seconds
+15403: 20.649: Waiting for pre-allocation to finish (in case of a parallel pre-allocation)
+15403: 20.649: Population and pre-allocation of filesets completed
+15420: 20.649: Starting 1 filereader instances
+15421: 20.683: Starting 50 filereaderthread threads
+15403: 21.813: Running...
+15403: 921.901: Run took 900 seconds...
+15403: 921.909: Per-Operation Breakdown
+statfile1            709502ops      788ops/s   0.0mb/s      0.0ms/op     7377us/op-cpu [0ms - 4ms]
+deletefile1          709507ops      788ops/s   0.0mb/s      0.0ms/op     7386us/op-cpu [0ms - 3ms]
+closefile3           709512ops      788ops/s   0.0mb/s      0.0ms/op     7269us/op-cpu [0ms - 4ms]
+readfile1            709516ops      788ops/s 103.8mb/s      0.1ms/op     7401us/op-cpu [0ms - 4ms]
+openfile2            709518ops      788ops/s   0.0mb/s      0.0ms/op     7406us/op-cpu [0ms - 17ms]
+closefile2           709521ops      788ops/s   0.0mb/s      0.0ms/op     7258us/op-cpu [0ms - 3ms]
+appendfilerand1      709527ops      788ops/s   6.2mb/s      0.0ms/op     7315us/op-cpu [0ms - 8ms]
+openfile1            709528ops      788ops/s   0.0mb/s      0.0ms/op     7405us/op-cpu [0ms - 14ms]
+closefile1           709533ops      788ops/s   0.0mb/s      0.0ms/op     7267us/op-cpu [0ms - 3ms]
+wrtfile1             709536ops      788ops/s  97.7mb/s      0.1ms/op     7410us/op-cpu [0ms - 8ms]
+createfile1          709540ops      788ops/s   0.0mb/s      0.1ms/op     7446us/op-cpu [0ms - 21ms]
+15403: 921.909: IO Summary: 7804740 ops, 8671.116 ops/s, (788/1577 r/w), 207.7mb/s,   1090us cpu/op,   0.1ms latency
+15403: 921.909: Shutting down processes
+
+Collection and Platform Info
+----------------------------
+Parameter                 r009ah                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  /home/ziyang/Pmem/filebench/filebench "-f" "/home/ziyang/Pmem/filebench/fileserver_wl_pmfs1.f"                
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               854253256                                                                                                     
+Collection start time     11:05:23 21/05/2015 UTC                                                                                       
+Collection stop time      11:07:21 21/05/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r009ah                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292375828                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       117.986
+CPU Time:           200.333
+Average CPU Usage:  1.579  
+CPI Rate:           3.524  
+
+Event summary
+-------------
+Hardware Event Type         Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+--------------------------  -------------------------  --------------------------------  -----------------
+INST_RETIRED.ANY                          76537486182                            205601  3300000          
+CPU_CLK_UNHALTED.THREAD                  269685674975                            229914  3300000          
+CPU_CLK_UNHALTED.REF_TSC                 659571157575                            189597  3300000          
+BR_INST_RETIRED.NEAR_TAKEN                 1504223484                              7040  200003           
+CALL_COUNT                                   87697947                             34199  1                
+ITERATION_COUNT                             889338684                             24457  1                
+LOOP_ENTRY_COUNT                            156978284                             14322  1                
