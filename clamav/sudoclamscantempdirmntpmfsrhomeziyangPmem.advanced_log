@@ -1,0 +1,41 @@
+
+Collection and Platform Info
+----------------------------
+Parameter                 r001ah                                                                                                        
+------------------------  --------------------------------------------------------------------------------------------------------------
+Application Command Line  sudo "clamscan" "--tempdir=/mnt/pmfs/" "-r" "/home/ziyang/Pmem/"                                              
+Operating System          3.11.0 DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+Computer Name             ziyang-OptiPlex-7020                                                                                          
+Result Size               48411801                                                                                                      
+Collection start time     00:27:39 02/08/2015 UTC                                                                                       
+Collection stop time      00:27:43 02/08/2015 UTC                                                                                       
+
+CPU
+---
+Parameter          r001ah                                           
+-----------------  -------------------------------------------------
+Name               4th generation Intel(R) Core(TM) Processor family
+Frequency          3292375829                                       
+Logical CPU Count  4                                                
+
+Summary
+-------
+Elapsed Time:       4.565
+CPU Time:           3.514
+Average CPU Usage:  0.860
+CPI Rate:           0.445
+
+Event summary
+-------------
+Hardware Event Type         Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+--------------------------  -------------------------  --------------------------------  -----------------
+INST_RETIRED.ANY                          29076756505                              8518  3300000          
+CPU_CLK_UNHALTED.THREAD                   12935413608                              5519  3300000          
+CPU_CLK_UNHALTED.REF_TSC                  11568349716                              3910  3300000          
+BR_INST_RETIRED.NEAR_TAKEN                 1965830291                              9829  200003           
+ITERATION_COUNT                             614449195                             61142  1                
+LOOP_ENTRY_COUNT                            329816631                             44048  1                
+CALL_COUNT                                  117281498                             77700  1                
